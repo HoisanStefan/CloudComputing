@@ -1,0 +1,319 @@
+{
+	"info": {
+		"_postman_id": "93d4cbdf-e62e-4071-adee-a89fd48d16fb",
+		"name": "cc",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11196715"
+	},
+	"item": [
+		{
+			"name": "card - getById - direct",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer=ABC",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8082/api/card/getById/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"card",
+						"getById",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "card - getById - gateway",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer=ABC",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:9090/card-service/api/card/getById/12",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"card-service",
+						"api",
+						"card",
+						"getById",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "card - exchangeRate",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer=ABC",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:9090/card-service/api/card/exchangeRate",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"card-service",
+						"api",
+						"card",
+						"exchangeRate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "card - create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer=ABC",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cardNumber\": \"1234123412341666\",\r\n    \"cvv\": \"666\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9090/card-service/api/card/create",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"card-service",
+						"api",
+						"card",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "customer - getById - direct",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer=ABC",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/customer/getById/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customer",
+						"getById",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "customer - getById - gateway",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer=ABC",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:9090/customer-service/api/customer/getById/1",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"customer-service",
+						"api",
+						"customer",
+						"getById",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "customer - create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer=ABC",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "multipart/form-data",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"firstName\",\r\n    \"lastName\": \"lastName\",\r\n    \"cardId\": 7\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9090/customer-service/api/customer/create",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"customer-service",
+						"api",
+						"customer",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getConfigData",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8888/card-service/default",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"card-service",
+						"default"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "lorem ipsum get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "example ninjas api - exchange rate",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Api-Key",
+						"value": "1fuMfPd3YZyPfdxCv6JX/w==ZgJVQLfB6NFO1Vo3",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.api-ninjas.com/v1/exchangerate?pair=EUR_RON",
+					"protocol": "https",
+					"host": [
+						"api",
+						"api-ninjas",
+						"com"
+					],
+					"path": [
+						"v1",
+						"exchangerate"
+					],
+					"query": [
+						{
+							"key": "pair",
+							"value": "EUR_RON"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://10.86.130.44:8080/",
+					"protocol": "http",
+					"host": [
+						"10",
+						"86",
+						"130",
+						"44"
+					],
+					"port": "8080",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
