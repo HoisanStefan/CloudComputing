@@ -25,11 +25,15 @@ public class CardServiceProxy {
     public CardResponse getCardById(long cardId) {
         logger.info("count = " + count);
         count++;
-        return cardFeignClient.getById(cardId);
+        try {
+            return cardFeignClient.getById(cardId);
+        } catch (Exception e) {
+            return fallbackGetCardById(cardId, e);
+        }
     }
 
     public CardResponse fallbackGetCardById(long cardId, Throwable throwable) {
         logger.error("Error = " + throwable);
-        return new CardResponse();
+        return null;
     }
 }

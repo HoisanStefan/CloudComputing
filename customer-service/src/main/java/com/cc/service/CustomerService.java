@@ -4,6 +4,7 @@ import com.cc.entity.Customer;
 import com.cc.exceptions.CustomerNotFoundException;
 import com.cc.repository.CustomerRepository;
 import com.cc.request.CreateCustomerRequest;
+import com.cc.response.CardResponse;
 import com.cc.response.CustomerResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +29,13 @@ public class CustomerService {
 
     public CustomerResponse createCustomer(CreateCustomerRequest createCustomerRequest) {
 
+        long cardId = createCustomerRequest.getCardId();
+        CardResponse cardResponse = this.cardServiceProxy.getCardById(cardId);
+
+        if (cardResponse == null) {
+            throw new CustomerNotFoundException("Card " + cardId + " not found!");
+        }
+
         Customer customer = new Customer();
         customer.setFirstName(createCustomerRequest.getFirstName());
         customer.setLastName(createCustomerRequest.getLastName());
@@ -37,7 +45,7 @@ public class CustomerService {
 
         CustomerResponse customerResponse = new CustomerResponse(customer);
 
-        customerResponse.setCardResponse(this.cardServiceProxy.getCardById(customer.getCardId()));
+        customerResponse.setCardResponse(cardResponse);
 
         return customerResponse;
     }
