@@ -1,0 +1,134 @@
+services:
+  eureka-server:
+    container_name: eureka-server
+    build: ./eureka-server
+    restart: always
+    networks:
+      - ms-network
+    environment:
+      eureka.instance.hostname: eureka-server
+      SPRING.ZIPKIN.BASEURL: http://zipkin:9411/
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+    depends_on:
+      - config-server
+    ports:
+      - 8761:8761
+
+  config-server:
+    container_name: config-server
+    build: ./config-server
+    restart: always
+    networks:
+      - ms-network
+    environment:
+      SPRING.ZIPKIN.BASEURL: http://zipkin:9411/
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+    ports:
+      - 8888:8888
+
+  api-gateway:
+    container_name: api-gateway
+    build: ./api-gateway
+    restart: always
+    depends_on:
+      - config-server
+      - eureka-server
+      - customer-service
+      - card-service
+    networks:
+      - ms-network
+    environment:
+      SPRING.ZIPKIN.BASEURL: http://zipkin:9411/
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+    ports:
+      - 9090:9090
+
+  card-service:
+    container_name: card-service
+    build: ./card-service
+    restart: always
+    depends_on:
+      - eureka-server
+      - config-server
+      - database_server
+      - zipkin
+    networks:
+      - ms-network
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      SPRING.ZIPKIN.BASEURL: http://zipkin:9411/
+      SPRING_CLOUD_CONFIG_URI: http://config-server:8888
+    links:
+      - config-server
+      - database_server
+    ports:
+      - 8082:8082
+
+  customer-service:
+    deploy:
+      mode: replicated
+      replicas: 2
+    build: ./customer-service
+    restart: always
+    depends_on:
+      - config-server
+      - eureka-server
+      - database_server
+      - zipkin
+    networks:
+      - ms-network
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      SPRING.ZIPKIN.BASEURL: http://zipkin:9411/
+      SPRING_CLOUD_CONFIG_URI: http://config-server:8888
+    links:
+      - config-server
+      - database_server
+    ports:
+      - "8080-8081:8080"
+
+  zipkin:
+    image: openjdk:8-jre-alpine
+    container_name: zipkin
+    volumes:
+      - ./zipkin-server-2.24.2-exec.jar:/app/app.jar
+    command: [ "java", "-jar", "/app/app.jar" ]
+    networks:
+      - ms-network
+    ports:
+      - "9411:9411"
+
+  database_server:
+    image: mysql:latest
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    container_name: database_server
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+    networks:
+      - ms-network
+    volumes:
+      - ./scripts/:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    links:
+      - database_server
+    environment:
+      PMA_HOST: database_server
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    networks:
+      - ms-network
+    ports:
+      - 80:80
+
+volumes:
+  database_server:
+
+networks:
+  ms-network:
+    driver: bridge

@@ -1,4 +1,5 @@
-FROM openjdk:11-oracle
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} card_service.jar
-ENTRYPOINT ["java","-jar","/card_service.jar"]
+FROM openjdk
+WORKDIR /app
+COPY /target/card-service-0.0.3-SNAPSHOT.jar ./card-service.jar
+EXPOSE 8082
+CMD ["java", "-jar", "card-service.jar"]
