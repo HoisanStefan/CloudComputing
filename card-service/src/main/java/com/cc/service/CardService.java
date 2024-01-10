@@ -13,6 +13,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 
 import java.util.Optional;
 
@@ -33,6 +34,7 @@ public class CardService {
         this.environment = environment;
     }
 
+    @CircuitBreaker(name="cardService", fallbackMethod = "fallbackError")
     public CardResponse createCard(CreateCardRequest createCardRequest) {
 
         Card card = new Card();
@@ -44,6 +46,7 @@ public class CardService {
         return new CardResponse(card);
     }
 
+    @CircuitBreaker(name="cardService", fallbackMethod = "fallbackError")
     public CardResponse getById (long id) {
         logger.info("Inside getById " + id);
 
@@ -55,6 +58,7 @@ public class CardService {
         return new CardResponse(optionalCard.get());
     }
 
+    @CircuitBreaker(name="cardService", fallbackMethod = "fallbackError")
     public ExchangeRateResponse getExchangeRate() {
         System.out.println(environment.getProperty("exchangeApi.apiKey"));
         Mono<ExchangeRateResponse> addressResponse =
@@ -65,5 +69,14 @@ public class CardService {
                         .bodyToMono(ExchangeRateResponse.class);
 
         return addressResponse.block();
+    }
+
+    @CircuitBreaker(name="cardService", fallbackMethod = "fallbackError")
+    public CardResponse throwUncaughtError() {
+        throw new RuntimeException();
+    }
+
+    public void fallbackError(Throwable throwable) {
+        logger.error("Error = " + throwable);
     }
 }

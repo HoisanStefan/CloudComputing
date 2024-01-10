@@ -43,4 +43,10 @@ public class CustomerController {
 
         return customerResponse;
     }
+
+    @Operation(summary = "Simulate uncaught exception in order to test CircuitBreaker")
+    @GetMapping("/error")
+    public CustomerResponse throwError() {
+        return customerService.throwUncaughtError();
+    }
 }

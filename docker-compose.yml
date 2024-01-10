@@ -6,9 +6,9 @@ services:
     networks:
       - ms-network
     environment:
-      eureka.instance.hostname: eureka-server
+      eureka.instance.prefer-ip-address: true
       SPRING.ZIPKIN.BASEURL: http://zipkin:9411/
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      SPRING_APPLICATION_JSON: '{"eureka":{"client":{"serviceUrl":{"defaultZone":"http://eureka-server:8761/eureka"}}}}'
     depends_on:
       - config-server
     ports:
@@ -22,7 +22,7 @@ services:
       - ms-network
     environment:
       SPRING.ZIPKIN.BASEURL: http://zipkin:9411/
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      SPRING_APPLICATION_JSON: '{"eureka":{"client":{"serviceUrl":{"defaultZone":"http://eureka-server:8761/eureka"}}}}'
     ports:
       - 8888:8888
 
@@ -39,12 +39,14 @@ services:
       - ms-network
     environment:
       SPRING.ZIPKIN.BASEURL: http://zipkin:9411/
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      SPRING_APPLICATION_JSON: '{"eureka":{"client":{"serviceUrl":{"defaultZone":"http://eureka-server:8761/eureka"}}}}'
     ports:
       - 9090:9090
 
   card-service:
-    container_name: card-service
+    deploy:
+      mode: replicated
+      replicas: 2
     build: ./card-service
     restart: always
     depends_on:
@@ -55,19 +57,16 @@ services:
     networks:
       - ms-network
     environment:
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      SPRING_APPLICATION_JSON: '{"eureka":{"client":{"serviceUrl":{"defaultZone":"http://eureka-server:8761/eureka"}}}}'
       SPRING.ZIPKIN.BASEURL: http://zipkin:9411/
       SPRING_CLOUD_CONFIG_URI: http://config-server:8888
     links:
       - config-server
       - database_server
     ports:
-      - 8082:8082
+      - "8082-8083:8082"
 
   customer-service:
-    deploy:
-      mode: replicated
-      replicas: 2
     build: ./customer-service
     restart: always
     depends_on:
@@ -78,14 +77,14 @@ services:
     networks:
       - ms-network
     environment:
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      SPRING_APPLICATION_JSON: '{"eureka":{"client":{"serviceUrl":{"defaultZone":"http://eureka-server:8761/eureka"}}}}'
       SPRING.ZIPKIN.BASEURL: http://zipkin:9411/
       SPRING_CLOUD_CONFIG_URI: http://config-server:8888
     links:
       - config-server
       - database_server
     ports:
-      - "8080-8081:8080"
+      - 8080:8080
 
   zipkin:
     image: openjdk:8-jre-alpine

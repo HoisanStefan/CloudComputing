@@ -6,6 +6,7 @@ import com.cc.repository.CustomerRepository;
 import com.cc.request.CreateCustomerRequest;
 import com.cc.response.CardResponse;
 import com.cc.response.CustomerResponse;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ public class CustomerService {
         this.cardServiceProxy = cardServiceProxy;
     }
 
+    @CircuitBreaker(name="customerService", fallbackMethod = "fallbackError")
     public CustomerResponse createCustomer(CreateCustomerRequest createCustomerRequest) {
 
         long cardId = createCustomerRequest.getCardId();
@@ -50,6 +52,7 @@ public class CustomerService {
         return customerResponse;
     }
 
+    @CircuitBreaker(name="customerService", fallbackMethod = "fallbackError")
     public CustomerResponse getById(long id) {
 
         logger.info("Inside getById " + id);
@@ -63,5 +66,14 @@ public class CustomerService {
         customerResponse.setCardResponse(this.cardServiceProxy.getCardById(customer.getCardId()));
 
         return customerResponse;
+    }
+
+    @CircuitBreaker(name="customerService", fallbackMethod = "fallbackError")
+    public CustomerResponse throwUncaughtError() {
+        throw new RuntimeException();
+    }
+
+    public void fallbackError(Throwable throwable) {
+        logger.error("Error = " + throwable);
     }
 }
