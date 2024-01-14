@@ -239,7 +239,11 @@ Endpoints.propTypes = {
     loading: PropTypes.bool.isRequired,
   }),
   requestData: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired,
-  setAlert: PropTypes.func.isRequired,
+  setAlert: PropTypes.func,
+};
+
+Endpoints.defaultProps = {
+  setAlert: () => {},
 };
 
 export default Endpoints;

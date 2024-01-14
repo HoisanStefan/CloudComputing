@@ -1,2 +1,2 @@
 com\cc\app\EurekaServerApplication.class
-com\cc\app\cors\WebSecurityConfig.class
+com\cc\app\cors\WebCorsConfig.class

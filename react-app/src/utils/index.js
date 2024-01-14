@@ -177,6 +177,34 @@ export const fetchExchangeRate = async (setData, setLoading) => {
   }
 };
 
+export const fetchCardConfig = async (setData, setLoading) => {
+  try {
+    // TODO: change localhost
+    const result = await fetchData("http://localhost:8888/card-service/default");
+    console.log(result);
+    setData(result);
+  } catch (error) {
+    setData(error);
+    console.log(error);
+  } finally {
+    setLoading(false);
+  }
+};
+
+export const fetchCustomerConfig = async (setData, setLoading) => {
+  try {
+    // TODO: change localhost
+    const result = await fetchData("http://localhost:8888/customer-service/default");
+    console.log(result);
+    setData(result);
+  } catch (error) {
+    setData(error);
+    console.log(error);
+  } finally {
+    setLoading(false);
+  }
+};
+
 export const uncaughtErrorCustomer = async (setData, setLoading) => {
   try {
     // TODO: change localhost

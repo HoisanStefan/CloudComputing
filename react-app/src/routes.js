@@ -27,6 +27,7 @@ import Eureka from "layouts/eureka";
 import CardService from "layouts/card-service";
 import CustomerService from "layouts/customer-service";
 import Documentation from "examples/Footer/Pages/Documentation";
+import ConfigServer from "layouts/config-server";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -55,6 +56,14 @@ const routes = [
     icon: <Icon fontSize="small">table_view</Icon>,
     route: "/customer-service",
     component: <CustomerService />,
+  },
+  {
+    type: "collapse",
+    name: "ConfigServer",
+    key: "config-server",
+    icon: <Icon fontSize="small">storage</Icon>,
+    route: "/config-server",
+    component: <ConfigServer />,
   },
   {
     type: "collapse",
