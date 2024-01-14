@@ -1,12 +1,13 @@
 services:
-  # react-app:
-  #   build:
-  #     context: ./react-app
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "3000:3000"
-  #   networks:
-  #     - ms-network
+  react-app:
+     container_name: react-app
+     build:
+       context: ./react-app
+       dockerfile: Dockerfile
+     ports:
+       - "3000:3000"
+     networks:
+       - ms-network
 
   eureka-server:
     container_name: eureka-server
