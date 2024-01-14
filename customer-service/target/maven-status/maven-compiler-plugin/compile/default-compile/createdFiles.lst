@@ -8,6 +8,7 @@ com\cc\response\CardResponse.class
 com\cc\exceptions\CustomerNotFoundException.class
 com\cc\repository\CustomerRepository.class
 com\cc\exceptions\ExceptionPattern.class
+com\cc\config\WebCorsConfig.class
 com\cc\app\CustomerServiceApplication.class
 com\cc\service\CustomerService.class
 com\cc\response\CustomerResponse.class

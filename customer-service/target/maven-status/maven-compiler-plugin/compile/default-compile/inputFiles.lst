@@ -6,6 +6,7 @@ E:\Facultate\Master\An2\Sem1\CloudComputing\Proiect\Java-Spring-Microservices\cu
 E:\Facultate\Master\An2\Sem1\CloudComputing\Proiect\Java-Spring-Microservices\customer-service\src\main\java\com\cc\service\CustomerService.java
 E:\Facultate\Master\An2\Sem1\CloudComputing\Proiect\Java-Spring-Microservices\customer-service\src\main\java\com\cc\exceptions\ExceptionPattern.java
 E:\Facultate\Master\An2\Sem1\CloudComputing\Proiect\Java-Spring-Microservices\customer-service\src\main\java\com\cc\request\CreateCustomerRequest.java
+E:\Facultate\Master\An2\Sem1\CloudComputing\Proiect\Java-Spring-Microservices\customer-service\src\main\java\com\cc\config\WebCorsConfig.java
 E:\Facultate\Master\An2\Sem1\CloudComputing\Proiect\Java-Spring-Microservices\customer-service\src\main\java\com\cc\response\CustomerResponse.java
 E:\Facultate\Master\An2\Sem1\CloudComputing\Proiect\Java-Spring-Microservices\customer-service\src\main\java\com\cc\response\CardResponse.java
 E:\Facultate\Master\An2\Sem1\CloudComputing\Proiect\Java-Spring-Microservices\customer-service\src\main\java\com\cc\service\CardServiceProxy.java

@@ -15,6 +15,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/api/customer")
+@CrossOrigin
 @Api(value = "Customer Controller", description = "REST APIs to create and retrieve customers")
 @Validated
 public class CustomerController {
