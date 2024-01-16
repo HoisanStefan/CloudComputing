@@ -63,20 +63,22 @@ fiecare microserviciu. Aceste pagini permit accesul la endpoint-urile expuse de
 API-urile corespunzătoare. Am inclus, de asemenea, o pagină pentru documentație
 pentru a facilita înțelegerea și utilizarea serviciilor.
 
-## Instrucțiuni de pornire
+## Instrucțiuni de pornire - versiunea actuala, imaginile pe **https://hub.docker.com/**
+
+3. Se intră în folderul principal *Java-Spring-Microservices* și se rulează comanda:
+
+>**````docker-compose up -d````**
+
+## (Legacy) Instrucțiuni de pornire - versiunea cu build
 1. Se va rula această comandă în fiecare din modulele: *api-gateway*, *card-service*,
-*config-server*, *customer-service*, *eureka-server*
-			  
+*config-server*, *customer-service*, *eureka-server*		  
 
 >**````mvn clean package````**
 
-
 2. Se intră în folderul *react-app* și se rulează comanda:
 
-
 >**````npm ci````**
-
-			  
+		  
 3. Se intră în folderul principal *Java-Spring-Microservices* și se rulează comenzile:
 
 >**````docker-compose build --no-cache````**
